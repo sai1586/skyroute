@@ -20,12 +20,26 @@ SkyRoute is a web-based application that displays real-time and forecasted weath
 - Deployment: Docker, AWS/Render
 
 ## Getting Started
-Project folders:
-- `frontend/` - React app
-- `backend/` - Django API
-- `infrastructure/` - Docker, deployment, configs
 
-## Functional Requirements
+### Project Folders
+- `frontend/` — React app (TypeScript, TailwindCSS)
+- `backend/` — Django API (Django REST Framework)
+- `infrastructure/` — Docker, deployment, configs
+
+### Running Locally with Docker
+1. Make sure you have Docker and Docker Compose installed.
+2. In the project root, run:
+	```bash
+	cd infrastructure
+	docker-compose up --build
+	```
+3. Backend (Django) will be available at http://localhost:8000
+4. Frontend (React) will be available at http://localhost:3000
+
+### Troubleshooting React Setup
+If you see errors about conflicting files (e.g., Dockerfile, .dockerignore) when running `npx create-react-app`, temporarily move those files out of the `frontend` folder, run the command, then move them back.
+
+### Functional Requirements
 - User inputs source and destination
 - System fetches and displays optimal route
 - Fetch real-time and forecast weather data
