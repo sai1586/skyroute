@@ -1,0 +1,31 @@
+# Python
+*.pyc
+__pycache__/
+venv/
+
+# Django
+*.sqlite3
+*.db
+.env
+
+# Docker
+backend/.env
+infrastructure/.env
+backend/.dockerignore
+
+# Node
+node_modules/
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Misc
+*.bak
+*.swp

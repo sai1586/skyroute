@@ -1,0 +1,42 @@
+version: '3.9'
+services:
+  backend:
+    build: ../backend
+    container_name: skyroute-backend
+    environment:
+      - DJANGO_ENV=${DJANGO_ENV}
+    # Use Django's development server for auto-reload
+    command: >
+      sh -c "if [ '$DJANGO_ENV' = 'development' ]; then python manage.py runserver 0.0.0.0:8000; else gunicorn core.wsgi:application --bind 0.0.0.0:8000; fi"
+    volumes:
+      - ../backend:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - ../backend/.env
+    depends_on:
+      - db
+  db:
+    image: postgres:15
+    container_name: skyroute-db
+    environment:
+      POSTGRES_DB: skyroute
+      POSTGRES_USER: skyroute
+      POSTGRES_PASSWORD: skyroute
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  frontend:
+    build: ../frontend
+    container_name: skyroute-frontend
+    volumes:
+      - ../frontend:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backend
+volumes:
+  postgres_data:
